@@ -22,5 +22,5 @@ jobs:
         uses: zaproxy/action-baseline@v0.15.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }} # Needed if you want ZAP to create issues
-          target: 'https://www.demo.testfire.net'   # Change this to your test URL
+          target: 'https://demo.testfire.net/'   # Change this to your test URL
           fail_action: true                  # Fails the build if vulnerabilities are found
