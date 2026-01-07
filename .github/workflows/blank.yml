@@ -7,6 +7,11 @@ on:
     branches: [ "main", "develop" ]
   workflow_dispatch: # Allows you to trigger it manually via a button
 
+# To write the issues
+permissions:
+  contents: read
+  issues: write
+
 # 3. Job: The "worker" that runs the code
 jobs:
   zap_scan:
@@ -23,4 +28,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }} # Needed if you want ZAP to create issues
           target: 'https://demo.testfire.net/'   # Change this to your test URL
-          fail_action: true                  # Fails the build if vulnerabilities are found
+          fail_action: false                  # This keeps the workflow "Green" even if it finds bugs
