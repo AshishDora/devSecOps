@@ -1,0 +1,26 @@
+# 1. Name of the workflow (shows up in the Actions tab)
+name: OWASP ZAP Baseline Scan
+
+# 2. Trigger: This tells GitHub WHEN to run (on push or manually)
+on:
+  push:
+    branches: [ "main", "develop" ]
+  workflow_dispatch: # Allows you to trigger it manually via a button
+
+# 3. Job: The "worker" that runs the code
+jobs:
+  zap_scan:
+    runs-on: ubuntu-latest # The type of virtual machine to use
+    name: Run security scan
+    steps:
+      # 4. REQUIRED: This pulls your code into the runner
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 5. The part you found (The actual scan)
+      - name: ZAP Scan
+        uses: zaproxy/action-baseline@v0.15.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }} # Needed if you want ZAP to create issues
+          target: 'https://www.demo.testfire.net'   # Change this to your test URL
+          fail_action: true                  # Fails the build if vulnerabilities are found
