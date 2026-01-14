@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0 
 
       - name: GitGuardian scan
-        uses: GitGuardian/ggshield-action@v1.30.0
+        uses: GitGuardian/ggshield-action@v1
         env:
           # This pulls the key you just verified from GitHub Secrets
           GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
