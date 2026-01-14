@@ -21,7 +21,7 @@ jobs:
       - name: GitGuardian scan
         uses: GitGuardian/ggshield-action@v1
         with:
-          args: scan ci --source-uuid 6127ffcd-2288-4c82-ac79-683b00e88b03
+          args: ci --source-uuid 6127ffcd-2288-4c82-ac79-683b00e88b03
         env:
           # This pulls the key you just verified from GitHub Secrets
           GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
