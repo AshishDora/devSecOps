@@ -1,6 +1,12 @@
 Hello world!!!
 password="password123";
 AWS_SECRET_KEY = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEA75p3... (add random characters here)
+-----END RSA PRIVATE KEY-----
+
+GOOGLE_API_KEY="AIzaSyA"  "B1234567890abcdefghijklmnopqrstuv"
 file-1
+
 
 
