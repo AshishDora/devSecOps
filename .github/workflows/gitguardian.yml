@@ -1,6 +1,11 @@
 name: GitGuardian Scan
 
-on: [push, pull_request]
+on: 
+  push:
+    branches: [ "main", "develop" ] # Triggers on code upload
+  pull_request:
+    branches: [ "main" ]           # Triggers when someone asks to merge
+  workflow_dispatch:
 
 jobs:
   scanning:
