@@ -8,5 +8,13 @@ MIIEpAIBAAKCAQEA75p3... (add random characters here)
 GOOGLE_API_KEY="AIzaSyA"  "B1234567890abcdefghijklmnopqrstuv"
 file-1
 
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEA75p3 (add random characters here)
+-----END RSA PRIVATE KEY-----
+
+GOOGLE_API_KEY="AIzaSyA-XyZ1234567890AbCdEfGhIjKlMnOpQr"
+
+# Copy and paste this exactly:
+GOOGLE_API_KEY="AIzaSyA-XyZ1234567890AbCdEfGhIjKlMnOpQr"
 
 
