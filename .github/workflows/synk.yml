@@ -1,25 +1,40 @@
 name: Snyk Security Scan
 
+# 1. Triggers: Automatically run on every push and pull request to main
 on:
   push:
     branches: ["main"]
   pull_request:
     branches: ["main"]
+  workflow_dispatch: # Allows manual trigger from the Actions tab
 
 jobs:
-  snyk_scan:
+  security:
     runs-on: ubuntu-latest
     steps:
+      # 2. Pull the latest code from your repository
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # Snyk needs your dependencies installed to scan accurately
+      # 3. Setup Node.js (Version 20 is recommended for current stability)
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 4. Install dependencies - Required for Snyk to analyze the package-lock.json
       - name: Install Dependencies
         run: npm install 
 
+      # 5. Run Snyk Security Scan
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
+        # The Action will fail the build (Red X) if high-severity issues are found
+        continue-on-error: false 
         env:
+          # This MUST match the secret name you created in GitHub Settings
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --severity-threshold=high
+          # --all-projects: Scans all manifest files found (useful for nested folders)
+          # --severity-threshold=high: Only fail the build for High or Critical bugs
+          args: --all-projects --severity-threshold=high
