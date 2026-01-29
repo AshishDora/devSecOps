@@ -19,22 +19,15 @@ jobs:
         with:
           node-version: '20'
 
-      # Snyk needs the project to be 'built' or 'installed' to see dependencies
+      # Ensures Snyk can analyze the full dependency tree
       - name: Install Dependencies
         run: npm install 
 
-      # We install the CLI manually to ensure perfect authentication
       - name: Install Snyk CLI
         run: npm install -g snyk
 
-      # This runs the scan using the CLI directly
       - name: Run Snyk Test
-      
-        run: |
-          # Manually authenticate the CLI using the secret
-          snyk auth ${{ secrets.SNYK_TOKEN }}
-          # Run the scan
-          snyk test --all-projects --severity-threshold=high
+        # By providing the token in 'env', Snyk automatically authenticates
+        run: snyk test --all-projects --severity-threshold=high
         env:
-          # Ensure this matches the name in your GitHub Secrets exactly
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
