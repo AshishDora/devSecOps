@@ -1,33 +1,14 @@
-name: Snyk Security Scan
-
-on:
-  push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
-  workflow_dispatch:
-
+name: Snyk Python Security Scan
+on: push
 jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      # Ensures Snyk can analyze the full dependency tree
-      - name: Install Dependencies
-        run: npm install 
-
-      - name: Install Snyk CLI
-        run: npm install -g snyk
-
-      - name: Run Snyk Test
-        # By providing the token in 'env', Snyk automatically authenticates
-        run: snyk test --all-projects --severity-threshold=high
+      - uses: actions/checkout@master
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/python@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          # Optional: only fail for high severity issues
+          args: --severity-threshold=high
