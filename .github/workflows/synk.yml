@@ -1,11 +1,30 @@
-name: Example workflow for Node using Snyk
-on: push
+name: Snyk Security Scan
+
+on:
+  push:
+    branches: ["main"]
+
 jobs:
   security:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # CRITICAL: This fixes the "Missing node_modules" error (SNYK-CLI-0000)
+      - name: Install Dependencies
+        run: npm install 
+
+      # Use the Snyk CLI directly to avoid auth wrapper issues
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
+        run: |
+          npm install -g snyk
+          snyk test --severity-threshold=high
         env:
+          # Double check this matches your GitHub Secret name exactly
           SNYK_TOKEN: ${{ secrets.SYNK_TOKEN }}
